@@ -18,8 +18,10 @@ app.use(express.json());
 await connectDB(process.env.MONGO_URL);
 
 // api/songs (Read all songs)
-
-
+app.get("/api/songs", async (req, res) => {
+  const rows = await Song.find().sort({ createdAt: -1 });
+  res.json(rows);
+});
 // api/songs (Insert song)
 app.post("/api/songs", async (req, res) => {
   try {
